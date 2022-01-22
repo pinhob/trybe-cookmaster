@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
 const { createUser,
-  findUserByEmail } = require('../models/users.model');
+  findUserByEmail,
+  getLogin } = require('../models/users.model');
 const errorHandling = require('../utils/errorHandling');
 
 const userValidateSchema = Joi.object({
@@ -30,6 +31,11 @@ const createUserService = async (name, email, password) => {
   return { user };
 };
 
+const getLoginService = (email, password) => {
+
+};
+
 module.exports = {
   createUserService,
+  getLoginService,
 };
