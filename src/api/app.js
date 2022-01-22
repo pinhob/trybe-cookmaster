@@ -7,6 +7,8 @@ const { errorMiddleware } = require('./middlewares/error.middleware');
 
 const app = express();
 
+app.use(express.json());
+
 // necessário para o projeto, de acordo com o readme
 app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
 

@@ -1,10 +1,12 @@
-const { createUserService } = require('../models/users.model');
+const { createUserService } = require('../services/users.service');
 
-// inserir validação pelo joi
-
-const createUserController = (req, res, next) => {
+const createUserController = async (req, res, next) => {
   try {
-    // inserir lógica
+    const { name, email, password } = req.body;
+
+    const newUser = await createUserService(name, email, password);
+
+    return res.status(201).json(newUser);
   } catch (error) {
     return next(error);
   }
