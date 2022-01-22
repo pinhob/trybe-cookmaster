@@ -46,7 +46,7 @@ const getLoginService = async (email, password) => {
   const emailExists = await findUserByEmail(email);
 
   if (!emailExists) throw errorHandling(401, 'Incorrect username or password');
- 
+
   const passwordsMatch = emailExists.password === password;
 
   if (!passwordsMatch) throw errorHandling(401, 'Incorrect username or password');

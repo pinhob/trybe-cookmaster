@@ -25,7 +25,16 @@ const getLoginController = async (req, res, next) => {
   }
 };
 
+const createRecipesController = async (req, res, next) => {
+  try {
+    // implementar logica
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   createUserController,
   getLoginController,
+  createRecipesController,
 };

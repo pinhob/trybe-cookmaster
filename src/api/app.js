@@ -4,6 +4,8 @@ const path = require('path');
 const { createUserController,
   getLoginController } = require('./controllers/users.controller');
 
+const { createRecipesController } = require('./controllers/recipes.controller');
+
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
 const app = express();
@@ -22,6 +24,8 @@ app.get('/', (request, response) => {
 app.post('/users', createUserController);
 
 app.post('/login', getLoginController);
+
+app.post('/recipes', createRecipesController);
 
 app.use(errorMiddleware);
 
