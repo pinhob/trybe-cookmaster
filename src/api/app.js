@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 
+const { createUserController } = require('./controllers/users.controller');
+
 const app = express();
 
 // necessário para o projeto, de acordo com o readme
@@ -11,5 +13,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 // Não remover esse end-point, ele é necessário para o avaliador
+
+app.post('/users', createUserController);
 
 module.exports = app;
