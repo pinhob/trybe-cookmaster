@@ -3,6 +3,8 @@ const path = require('path');
 
 const { createUserController } = require('./controllers/users.controller');
 
+const { errorMiddleware } = require('./middlewares/error.middleware');
+
 const app = express();
 
 // necessário para o projeto, de acordo com o readme
@@ -15,5 +17,7 @@ app.get('/', (request, response) => {
 // Não remover esse end-point, ele é necessário para o avaliador
 
 app.post('/users', createUserController);
+
+app.use(errorMiddleware);
 
 module.exports = app;

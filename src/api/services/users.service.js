@@ -1,4 +1,5 @@
 const { createUser } = require('../models/users.model');
+const errorHandling = require('../utils/errorHandling');
 
 // inserir validação pelo joi
 
