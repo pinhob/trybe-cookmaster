@@ -25,12 +25,7 @@ const createUser = async (name, email, password) => {
   return { name, email, role, _id };
 };
 
-const getLogin = (email, password) => {
-  
-};
-
 module.exports = {
   createUser,
   findUserByEmail,
-  getLogin,
 };
