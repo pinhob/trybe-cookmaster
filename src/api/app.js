@@ -6,7 +6,8 @@ const { createUserController,
 
 const { createRecipesController,
   getRecipesController,
-  getRecipesByIdController } = require('./controllers/recipes.controller');
+  getRecipesByIdController,
+  updateRecipeByIdController } = require('./controllers/recipes.controller');
 
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
@@ -32,6 +33,8 @@ app.post('/recipes', createRecipesController);
 app.get('/recipes', getRecipesController);
 
 app.get('/recipes/:id', getRecipesByIdController);
+
+app.put('/recipes/:id', updateRecipeByIdController);
 
 app.use(errorMiddleware);
 
