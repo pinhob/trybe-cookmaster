@@ -5,7 +5,8 @@ const { createUserController,
   getLoginController } = require('./controllers/users.controller');
 
 const { createRecipesController,
-  getRecipesController } = require('./controllers/recipes.controller');
+  getRecipesController,
+  getRecipesByIdController } = require('./controllers/recipes.controller');
 
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
@@ -29,6 +30,8 @@ app.post('/login', getLoginController);
 app.post('/recipes', createRecipesController);
 
 app.get('/recipes', getRecipesController);
+
+app.get('/recipes/:id', getRecipesByIdController);
 
 app.use(errorMiddleware);
 
