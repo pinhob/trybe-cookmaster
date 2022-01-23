@@ -6,7 +6,8 @@ const { createRecipes,
   getRecipes,
   getRecipesById,
   updateRecipeById,
-  deleteRecipeById } = require('../models/recipes.model');
+  deleteRecipeById,
+  putRecipeImage } = require('../models/recipes.model');
 const errorHandling = require('../utils/errorHandling');
 
 const notSoSecret = 'seusecretdetoken';
@@ -83,10 +84,25 @@ const deleteRecipeByIdService = async (token, id) => {
   return deletedRecipe;
 };
 
+const putRecipeImageService = async (id, imageName, token) => {
+  if (!token) throw errorHandling(401, 'missing auth token');
+  
+  jwt.verify(token, notSoSecret, (err, _infos) => {
+    if (err) throw errorHandling(401, 'jwt malformed');
+  });
+
+  const imagePath = `localhost:3000/src/uploads/${imageName}`;
+
+  const updatedRecipe = await putRecipeImage(id, imagePath);
+
+  return updatedRecipe;
+};
+
 module.exports = {
   createRecipesService,
   getRecipesService,
   getRecipesByIdService,
   updateRecipeByIdService,
   deleteRecipeByIdService,
+  putRecipeImageService,
 };

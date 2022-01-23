@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const multer = require('multer');
 
 const { createUserController,
   getLoginController } = require('./controllers/users.controller');
@@ -8,11 +9,23 @@ const { createRecipesController,
   getRecipesController,
   getRecipesByIdController,
   updateRecipeByIdController,
-  deleteRecipeByIdController } = require('./controllers/recipes.controller');
+  deleteRecipeByIdController,
+  putRecipeImageController } = require('./controllers/recipes.controller');
 
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
 const app = express();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, '../uploads/'),
+  filename: (req, file, cb) => {
+    const { id } = req.params;
+
+    cb(null, `${id}.jpeg`);
+  },
+});
+
+const upload = multer({ storage }).single('image');
 
 app.use(express.json());
 
@@ -38,6 +51,8 @@ app.get('/recipes/:id', getRecipesByIdController);
 app.put('/recipes/:id', updateRecipeByIdController);
 
 app.delete('/recipes/:id', deleteRecipeByIdController);
+
+app.put('/recipes/:id/image/', upload, putRecipeImageController);
 
 app.use(errorMiddleware);
 
