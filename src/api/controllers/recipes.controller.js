@@ -1,7 +1,8 @@
 const { createRecipesService,
   getRecipesService,
   getRecipesByIdService,
-  updateRecipeByIdService } = require('../services/recipes.service');
+  updateRecipeByIdService,
+  deleteRecipeByIdService } = require('../services/recipes.service');
 
 const createRecipesController = async (req, res, next) => {
   try {
@@ -54,9 +55,23 @@ const updateRecipeByIdController = async (req, res, next) => {
   }
 };
 
+const deleteRecipeByIdController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+
+    await deleteRecipeByIdService(authorization, id);
+
+    return res.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   createRecipesController,
   getRecipesController,
   getRecipesByIdController,
   updateRecipeByIdController,
+  deleteRecipeByIdController,
 };

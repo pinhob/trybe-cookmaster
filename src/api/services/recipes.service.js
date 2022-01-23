@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const { createRecipes,
   getRecipes,
   getRecipesById,
-  updateRecipeById } = require('../models/recipes.model');
+  updateRecipeById,
+  deleteRecipeById } = require('../models/recipes.model');
 const errorHandling = require('../utils/errorHandling');
 
 const notSoSecret = 'seusecretdetoken';
@@ -54,7 +55,7 @@ const getRecipesByIdService = async (id) => {
 
 const updateRecipeByIdService = async (token, body, id) => {
   const { name, ingredients, preparation } = body;
-  
+
   if (!token) throw errorHandling(401, 'missing auth token');
   
   const decoded = jwt.verify(token, notSoSecret, (err, infos) => {
@@ -70,9 +71,22 @@ const updateRecipeByIdService = async (token, body, id) => {
   return { userId, ...editedRecipe };
 };
 
+const deleteRecipeByIdService = async (token, id) => {
+  if (!token) throw errorHandling(401, 'missing auth token');
+  
+  jwt.verify(token, notSoSecret, (err, _infos) => {
+    if (err) throw errorHandling(401, 'jwt malformed');
+  });
+
+  const deletedRecipe = await deleteRecipeById(id);
+
+  return deletedRecipe;
+};
+
 module.exports = {
   createRecipesService,
   getRecipesService,
   getRecipesByIdService,
   updateRecipeByIdService,
+  deleteRecipeByIdService,
 };

@@ -7,7 +7,8 @@ const { createUserController,
 const { createRecipesController,
   getRecipesController,
   getRecipesByIdController,
-  updateRecipeByIdController } = require('./controllers/recipes.controller');
+  updateRecipeByIdController,
+  deleteRecipeByIdController } = require('./controllers/recipes.controller');
 
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
@@ -35,6 +36,8 @@ app.get('/recipes', getRecipesController);
 app.get('/recipes/:id', getRecipesByIdController);
 
 app.put('/recipes/:id', updateRecipeByIdController);
+
+app.delete('/recipes/:id', deleteRecipeByIdController);
 
 app.use(errorMiddleware);
 
