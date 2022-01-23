@@ -43,6 +43,7 @@ const getRecipesService = async () => {
 const getRecipesByIdService = async (id) => {
   const idIsValid = ObjectId.isValid(id);
 
+  // com base em: https://stackoverflow.com/a/25497438
   if (!idIsValid) throw errorHandling(404, 'recipe not found');
 
   const recipe = await getRecipesById(id);
