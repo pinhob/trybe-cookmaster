@@ -4,7 +4,8 @@ const path = require('path');
 const { createUserController,
   getLoginController } = require('./controllers/users.controller');
 
-const { createRecipesController } = require('./controllers/recipes.controller');
+const { createRecipesController,
+  getRecipesController } = require('./controllers/recipes.controller');
 
 const { errorMiddleware } = require('./middlewares/error.middleware');
 
@@ -26,6 +27,8 @@ app.post('/users', createUserController);
 app.post('/login', getLoginController);
 
 app.post('/recipes', createRecipesController);
+
+app.get('/recipes', getRecipesController);
 
 app.use(errorMiddleware);
 

@@ -1,7 +1,8 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
-const { createRecipes } = require('../models/recipes.model');
+const { createRecipes,
+  getRecipes } = require('../models/recipes.model');
 const errorHandling = require('../utils/errorHandling');
 
 const notSoSecret = 'seusecretdetoken';
@@ -31,6 +32,13 @@ const createRecipesService = async (token, name, ingredients, preparation) => {
   return { recipe };
 };
 
+const getRecipesService = async () => {
+  const recipes = await getRecipes();
+
+  return recipes;
+};
+
 module.exports = {
   createRecipesService,
+  getRecipesService,
 };
